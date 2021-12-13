@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: December 2021
+
+# no: Repeatedly output "n" until killed.
+# exit 1: usage error
+
+yes "n"

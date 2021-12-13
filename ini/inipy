@@ -1,0 +1,35 @@
+#!/bin/bash
+
+##initialize a python file
+
+#exit 1: usage error
+
+##if no command line args
+if [ $# -lt 1 ]; then
+    echo "Usage: inipy <file>"
+    exit 1
+fi
+
+file="$1"
+
+##set up a message for class description
+read -rp "Description for $file > " mess
+
+##variable setup
+
+#class name is everything before file extension
+cname=${file%.*}
+
+dt=`date '+%B %Y'`
+tab="    "
+
+##create/initialize file
+printf "\"\"\"\n$NAME\n$dt\n\"\"\"\n\nclass $cname:\n\n" > $file
+printf "$tab" >> $file
+printf "def __init__(self):\n" >> $file
+printf "$tab$tab\"\"\"$mess\n" >> $file
+printf "$tab$tab" >> $file
+printf "Args:\n" >> $file
+printf "$tab$tab$dt\"\"\"\n" >> $file
+printf "$tab#end init()\n" >> $file
+printf "#end $cname\n" >> $file

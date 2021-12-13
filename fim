@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: December 2021
+
+# fim: Searches from the current or a specified directory for a file, then opens the file in vim if
+# it is found.
+
+# exit 1: usage error
+
+## check for at least one, but no more than two command line arguments.
+if [[ "$#" -lt 1 ]]; then
+    echo "Usage: fim [directory] <filename>"
+    exit 1
+fi
+if [[ "$#" -gt 2 ]]; then
+    echo "Usage: fim [directory] <filename>"
+    exit 1
+fi
+
+## if one command line argument.
+if [ "$#" -eq 1 ]; then
+    file="$1"
+    find ./ -name "$file" -exec vim {} \;
+    find ./ -name "$file" | grep -q "$file"
+    code="$?"
+fi
+
+## if two command line arguments.
+if [ "$#" -eq 2 ]; then
+    file="$2"
+    find "$1" -name "$file" -exec vim {} \;
+    find "$1" -name "$file" | grep -q "$1"
+    code="$?"
+fi
+
+if [[ "$code" -ne 0 ]]; then
+    echo -n "File was not found, would you like to create file $file? (y/n) "
+    read answer
+    if [[ "$answer" == "y" ]]; then
+        echo
+        ini.sh "$file"
+        if [[ "$?" -ne 0 ]]; then
+            touch "$file"
+        fi
+    fi
+    echo
+fi

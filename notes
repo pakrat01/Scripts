@@ -1,0 +1,53 @@
+#!/bin/bash
+
+##show the notecards file in a neat fashion
+
+##set up initial variables
+file=~/notecards
+cards=()
+IFS=$'\n'
+
+##get lines in the file
+for line in `cat $file`; do
+    cards+=($line)
+done
+
+##idk why this is here
+#ln="                          "
+
+##for every line
+for line in "${cards[@]}"; do
+    len="${#line}"
+
+    ##while line has over 25 characters (including spaces)
+    while [ $len -gt 25 ]; do
+
+        ##get the last character
+        char=${line:25:1}
+        check=26
+
+        ##while character is not a space
+        while [ $char != ' ' ]; do
+
+            ##go back one character
+            ((check--))
+            char="${line:$check:1}"
+        done
+
+        ##get line up to first space before the 25th character
+        start=`cut -c1-$check <<< $line`
+        ((check++))
+
+        ##get rest of the line and print out the first part of the line
+        end=`cut -c$check-$len <<< $line`
+        echo $start | xargs -d$'\n'
+
+        ##get length of the rest of the line
+        line="$end"
+        len="${#line}"
+    done
+
+    ##print out the end of the line
+    end=$line
+    echo $end | xargs -d$'\n'
+done

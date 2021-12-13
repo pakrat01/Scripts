@@ -69,3 +69,6 @@ until it is killed.
 - [x] A functionality for `inis` to ask if you want to keep the ".s" extension on the bash script file.
 - [ ] `-r` option for `mn`
 - [ ] A functionality to change the length of the notecards.
+- [ ] Move some `.bashrc` aliases to scripts.
+  - [ ] tar stuff.
+  - [ ] PS1 stuff.

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: December 2021
+
+# untar: Detect the type of tar file and untar it.
+
+# exit 1: usage error
+

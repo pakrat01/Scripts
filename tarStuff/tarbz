@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: December 2021
+
+# tarbz: Tar a file without having to remember the options.
+
+# exit 1: usage error
+

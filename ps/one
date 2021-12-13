@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: December 2021
+
+# one: Show the current folder only for PS1.
+
+# exit 1: usage error
+

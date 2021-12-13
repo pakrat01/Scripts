@@ -26,9 +26,14 @@ cname=${file%.*}
 dt=`date '+%B %Y'`
 tab="    "
 
+read -rp "Do you want to delete the extension for this bash script file? (y/n) " ask
+if [[ $ask == "y" ]]; then
+    file="$cname"
+fi
+
 ## create/initialize file
 printf "#!/bin/bash\n\n" > $file
 printf "# Author: $NAME\n" >> $file
 printf "# Date: $dt\n\n" >> $file
-printf "# $cname: $mess\n" >> $file
+printf "# $cname: $mess\n\n" >> $file
 printf "# exit 1: usage error\n\n" >> $file

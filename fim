@@ -21,16 +21,20 @@ fi
 ## if one command line argument.
 if [ "$#" -eq 1 ]; then
     file="$1"
-    find ./ -name "$file" -exec vim {} \; 2>/dev/null
-    find ./ -name "$file" 2>/dev/null | grep -q "$file"
+    #find ./ -name "$file" -exec vim {} \; 2>/dev/null
+    #find ./ -name "$file" 2>/dev/null | | grep -q "$file"
+    find ./ -name "$file" -exec vim {} \; 2>&1 | grep -v "Permission denied"
+    find ./ -name "$file" 2>&1 | grep -v "Permission denied" | grep -q "$file"
     code="$?"
 fi
 
 ## if two command line arguments.
 if [ "$#" -eq 2 ]; then
     file="$2"
-    find "$1" -name "$file" -exec vim {} \; 2>/dev/null
-    find "$1" -name "$file" 2>/dev/null | grep -q "$1"
+    #find "$1" -name "$file" -exec vim {} \; 2>/dev/null
+    #find "$1" -name "$file" 2>/dev/null | grep -q "$1"
+    find "$1" -name "$file" -exec vim {} \; 2>&1 | grep -v "Permission denied"
+    find "$1" -name "$file" 2>&1 | grep -v "Permission denied" | grep -q "$file"
     code="$?"
 fi
 

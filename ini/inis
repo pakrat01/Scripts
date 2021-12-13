@@ -1,10 +1,13 @@
 #!/bin/bash
 
-##initialize a MIPS 32 file
+# Author: Paul Marks
+# Date: November 2021
 
-#exit 1: usage error
+# inis: Initialize a MIPS 32 file
 
-##if no command line args
+# exit 1: usage error
+
+## if no command line args
 if [ $# -lt 1 ]; then
     echo "Usage: inis <file>"
     exit 1
@@ -12,18 +15,18 @@ fi
 
 file="$1"
 
-##set up a message for class description
+## set up a message for class description
 read -rp "Description for $file > " mess
 
-##variable setup
+## variable setup
 
-#class name is everything before file extension
+# class name is everything before file extension
 cname=${file%.*}
 
 dt=`date '+%B %Y'`
 tab="    "
 
-##create/initialize file
+## create/initialize file
 printf "# $cname\n" > $file
 printf "# Author: $NAME\n" >> $file
 printf "# Date: $dt\n" >> $file

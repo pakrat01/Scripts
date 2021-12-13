@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Author: Paul Marks
+# Updated: December 2021
+
+# ev: if xServer not running, run it and evince in the background, otherwise start evince in the 
+# background.
+
 if ! xset q &>/dev/null; then
     vx &
     evince $1 &

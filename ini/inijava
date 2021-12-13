@@ -1,10 +1,13 @@
 #!/bin/bash
 
-##initialize a java file
+# Author: Paul Marks
+# Date: November 2021
 
-#exit 1: usage error
+# inijava: Initialize a java file
 
-##if no command line args
+# exit 1: usage error
+
+## if no command line args
 if [ $# -lt 1 ]; then
     echo "Usage: inijava <file>"
     exit 1
@@ -12,19 +15,19 @@ fi
 
 file="$1"
 
-##create a message for the javadoc
+## create a message for the javadoc
 read -rp "Description for $file > " mess
 message+="\n"
 
-##set up variables
+## set up variables
 
-#class name is everything before extension
+# class name is everything before extension
 cname=${file%.*}
 
 dt=`date '+%B %Y'`
 tab="    "
 
-##create/initialize file
+## create/initialize file
 printf "/**\n * $mess\n * \n * @author $NAME\n * @version $dt\n */\n" > $file
 printf "\npublic class $cname {\n" >> $file
 printf "\n$tab" >> $file

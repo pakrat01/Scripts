@@ -1,10 +1,13 @@
 #!/bin/bash
 
-##initialize a java file
+# Author: Paul Marks
+# Date: October 2021
 
-#exit 1: usage error
+# inijs: Initialize a javascript file
 
-##if no command line args
+# exit 1: usage error
+
+# if no command line args
 if [ $# -lt 1 ]; then
     echo "Usage: inijs <file>"
     exit 1
@@ -12,19 +15,19 @@ fi
 
 file="$1"
 
-##create a message for the javadoc
+## create a message for the javadoc
 read -rp "Description for $file > " mess
 message+="\n"
 
-##set up variables
+## set up variables
 
-#class name is everything before extension
+# class name is everything before extension
 cname=${file%.*}
 
 dt=`date '+%B %Y'`
 tab="    "
 
-##create/initialize file
+## create/initialize file
 printf "/**\n * @author $NAME\n * @version $dt\n * \n * $mess\n */\n" > $file
 printf "\n/**\n * @param \n * @return \n */\n" >> $file
 printf "function (){\n}\n" >> $file

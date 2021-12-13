@@ -1,13 +1,16 @@
 #!/bin/bash
 
-##initialize a file/group of files
+# Author: Paul Marks
+# Date: October 2021
 
-#exit 1: usage error
+## ini.sh: Initialize a file/group of files
 
-##getName function
-#creates/updates a name variable
+# exit 1: usage error
+
+## getName function
+# creates/updates a name variable
 getName () {
-    #while name is empty
+    # while name is empty
     while [ -z "$nm" ]; do
         read -rp "What name do you want on your files? > " nm
     done
@@ -18,26 +21,26 @@ getName () {
 
 temp=0
 
-##initial setup for script
+## initial setup for script
 if [ -z "$NAME" ]; then
     getName
 fi
 
-##change name
+## change name
 if [ "$1" = "-c" ]; then
     getName
     shift
 fi
 
-##use a different name for this/these file(s)
+## use a different name for this/these file(s)
 if [ "$1" = "-t" ]; then
 
-    #while name is empty
+    # while name is empty
     while [ -z "$nm" ]; do
         read -rp "What name do you want on your files? > " nm
     done
 
-    #save name
+    # save name
     sv="$NAME"
 
     export NAME="$nm"
@@ -45,13 +48,13 @@ if [ "$1" = "-t" ]; then
     shift
 fi
 
-##if no command line args
+## if no command line args
 if [ $# -lt 1 ]; then
     echo "Usage: ini <file(s)/extension(s)>"
     exit 1
 fi
 
-##check the file extension
+## check the file extension
 fiex=$1
 for fiex in "$@"; do
     case "$fiex" in
@@ -65,7 +68,7 @@ for fiex in "$@"; do
     esac
 done
 
-##reset name if a temp was used
+## reset name if a temp was used
 if [ "$temp" -eq 1 ]; then
     export NAME="$sv"
 fi

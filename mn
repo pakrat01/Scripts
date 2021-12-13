@@ -1,11 +1,16 @@
 #!/bin/bash
 
-#exit 1: usage error
-#exit 2: flag usage error
-#exit 3: invalid note number
-#exit 9: flag/option under construction
+# Author: Paul Marks
+# Date: September 2021
 
-##if no command line args
+# mn: A note creator/editor.
+
+# exit 1: usage error
+# exit 2: flag usage error
+# exit 3: invalid note number
+# exit 9: flag/option under construction
+
+## if no command line args
 if [ $# -lt 1 ]; then
     echo "Usage: mn OPTIONS <string>"
     exit 1
@@ -14,7 +19,7 @@ fi
 split='_'
 
 hlp () {
-    ##display the help menu
+    ## display the help menu
     echo "Notes Manager (Manage Notes, My Notes)"
     echo -e "\nUSAGE:" | expand -t4
     echo -e "\tusage: mn [OPTIONS] [COMMANDS] <string>" | expand -t4
@@ -34,32 +39,31 @@ hlp () {
     echo -e "\tstatus 2:\t\t\tFlag/option usage error." | expand -t4
     echo -e "\tstatus 3:\t\t\tInvalid note number." | expand -t4
     echo -e "\tstatus 9:\t\t\tFlag/option specified is under construction." | expand -t4
-    ##
 }
 
 getNum () {
-    ##get the number of the note
+    ## get the number of the note
     if [ "${#1}" -gt 2 ]; then
-        #tmp=`sed s/$2// <<< "$1" | xargs`
+        # tmp=`sed s/$2// <<< "$1" | xargs`
         tmp=`echo ${1:2:$(expr ${#1} - 2)} | xargs`
     else
-        #shift
+        # shift
         ne="y"
         tmp=`xargs <<< $3`
     fi
     ##
 
-    ##check if actually a number
+    ## check if actually a number
     if [ `grep "^[0-9]\+$" <<< "$tmp"` ] 2>/dev/null; then
         num=$tmp
     else 
-        #echo "hit"
+        # echo "hit"
         echo "Usage: $2 <num>"
         exit 2
     fi
     ##
     
-    ##check if valid note number
+    ## check if valid note number
     if [ "$num" -ge "$stickynum" ]; then
         echo "Do not have $num notes"
         exit 3
@@ -70,10 +74,10 @@ getNum () {
     ##
 }
 
-##get number of notes
+## get number of notes
 stickynum=`grep -o "^=" ~/notecards | wc -l`
 
-##if help
+## if help
 if [ "$1" == "help" ]; then
     if [ -z "$2" ]; then
         echo "Usage: help <command>"
@@ -119,19 +123,19 @@ if [ "$1" == "help" ]; then
     exit 0
 fi
 
-##while there are still command line args
+## while there are still command line args
 while [ $# -ne 0 ]; do
 
-    ##if arg is a flag or option
+    ## if arg is a flag or option
     if [ ${1:0:1} == "-" ] 2>/dev/null; then
 
-        ##find which flag/option is specified
+        ## find which flag/option is specified
         case ${1:0:2} in
             -r)
                 echo "-r is under construction"
                 exit 9
 
-                ##get the number of the note
+                ## get the number of the note
                 if [ "${#1}" -gt 2 ]; then
                     tmp=`sed s/-r// <<< "$1" | xargs`
                 else
@@ -140,7 +144,7 @@ while [ $# -ne 0 ]; do
                 fi
                 ##
 
-                ##check if actually a number
+                ## check if actually a number
                 if [ `grep "^[0-9]\+$" <<< "$tmp"` ] 2>/dev/null; then
                     num=$tmp
                 else 
@@ -150,7 +154,7 @@ while [ $# -ne 0 ]; do
                 ;;
 
             -s)
-                ##get the new delimiter
+                ## get the new delimiter
                 if [ "${#1}" -gt 2 ]; then
                     sp=`sed s/-s// <<< "$1" | xargs`
                 else
@@ -159,7 +163,7 @@ while [ $# -ne 0 ]; do
                 fi
                 ##
 
-                ##if the delimiter exists
+                ## if the delimiter exists
                 if [[ ! -z "$sp" ]]; then
 
                     ##set new delimiter
@@ -181,65 +185,65 @@ while [ $# -ne 0 ]; do
             -d)
                 getNum "$1" "-d" "$2"
 
-                ##if the number was not attatched to the flag
+                ## if the number was not attatched to the flag
                 if [ ! -z "$ne" ]; then
                     shift
                 fi
 
-                ##variable setup
+                ## variable setup
                 num=`expr $num - 1`
                 OLDIFS=$IFS
                 IFS=$'\n'
                 count=0
 
-                ##for every note seperator
+                ## for every note seperator
                 for line in `grep -n "^=" ~/notecards`; do
 
-                    ##if top seperator for note has been found
+                    ## if top seperator for note has been found
                     if [ ! -z $next ]; then
 
-                        ##temp change to IFS
+                        ## temp change to IFS
                         OIFS=$IFS
                         IFS=:
 
-                        ##get line number of bottom seperator
+                        ## get line number of bottom seperator
                         read -ra full <<< "$line"
                         end="${full[0]}"
                         end=`expr $end - 1`
 
-                        ##set next to empty
+                        ## set next to empty
                         next=""
 
-                        ##reset IFS
+                        ## reset IFS
                         IFS=$OIFS
                     fi
 
-                    ##if note seperator number matches note number
+                    ## if note seperator number matches note number
                     if [ $count -eq $num ]; then
 
-                        ##temp change to IFS
+                        ## temp change to IFS
                         OIFS=$IFS
                         IFS=:
 
-                        ##get line number of note seperator
+                        ## get line number of note seperator
                         read -ra full <<< "$line"
                         start="${full[0]}"
 
-                        ##give next a value
+                        ## give next a value
                         next="y"
 
-                        ##reset IFS
+                        ## reset IFS
                         IFS=$OIFS
                     fi
 
-                    ##go to next line seperator
+                    ## go to next line seperator
                     ((count++))
                 done
 
-                ##reset IFS
+                ## reset IFS
                 IFS=$OLDIFS
 
-                ##delete from top seperator of note to line before bottom seperator of note
+                ## delete from top seperator of note to line before bottom seperator of note
                 sed -i "$start,$end d" ~/notecards
 
                 exit 0
@@ -248,27 +252,27 @@ while [ $# -ne 0 ]; do
             -a)
                 getNum "$1" "-a" "$2"
 
-                ##if the number was not attatched to the flag
+                ## if the number was not attatched to the flag
                 if [ ! -z "$ne" ]; then
                     shift
                 fi
 
-                ##variable setup
+                ## variable setup
                 OLDIFS=$IFS
                 IFS=$'\n'
                 count=0
 
-                ##for each note seperator
+                ## for each note seperator
                 for line in `grep -n "^=" ~/notecards`; do
 
-                    ##if seperator number matches note number
+                    ## if seperator number matches note number
                     if [ $count -eq $num ]; then
 
-                        ##temp change to IFS
+                        ## temp change to IFS
                         OIFS=$IFS
                         IFS=:
 
-                        ##get line number of seperator
+                        ## get line number of seperator
                         read -ra full <<< "$line"
                         end="${full[0]}"
 
@@ -276,26 +280,26 @@ while [ $# -ne 0 ]; do
                         IFS=$OIFS
                     fi
 
-                    ##go to next note seperator
+                    ## go to next note seperator
                     ((count++))
                 done
 
-                ##go to string
+                ## go to string
                 shift
 
-                ###this probably should not be here###
+                ### this probably should not be here ###
                 if [ "$1" == "${!#}" ] 2>/dev/null; then
 
-                    ##change IFS
+                    ## change IFS
                     OLDIFS=$IFS
                     IFS=$split
 
-                    ##get string in array
+                    ## get string in array
                     read -ra new <<< $1
                     linenum="${#new[@]}"
                     ((linenum--))
 
-                    ##append string to note
+                    ## append string to note
                     while [ $linenum -ge 0 ]; do
                         line="${new[$linenum]}"
                         sed -i "$end i\\$line" ~/notecards
@@ -311,54 +315,54 @@ while [ $# -ne 0 ]; do
             -i)
                 getNum "$1" "-i" "$2"
 
-                ##if the number was not attatched to the flag
+                ## if the number was not attatched to the flag
                 if [ ! -z "$ne" ]; then
                     shift
                 fi
 
-                ##variable setup
+                ## variable setup
                 OLDIFS=$IFS
                 IFS=$'\n'
                 count=1
 
-                ##for each note seperator
+                ## for each note seperator
                 for line in `grep -n "^=" ~/notecards`; do
 
-                    ##if seperator number matches note number
+                    ## if seperator number matches note number
                     if [ $count -eq $num ]; then
 
-                        ##temp change to IFS
+                        ## temp change to IFS
                         OIFS=$IFS
                         IFS=:
 
-                        ##get line number of seperator
+                        ## get line number of seperator
                         read -ra full <<< "$line"
                         end="${full[0]}"
 
-                        ##reset IFS
+                        ## reset IFS
                         IFS=$OIFS
                     fi
 
-                    ##go to next note seperator
+                    ## go to next note seperator
                     ((count++))
                 done
 
-                ##go to string
+                ## go to string
                 shift
 
-                ###this probably should not be here###
+                ### this probably should not be here ###
                 if [ "$1" == "${!#}" ] 2>/dev/null; then
 
-                    ##change IFS
+                    ## change IFS
                     OLDIFS=$IFS
                     IFS=$split
 
-                    ##get string in array
+                    ## get string in array
                     read -ra new <<< $1
                     linenum="${#new[@]}"
                     ((linenum--))
 
-                    ##append string to note
+                    ## append string to note
                     while [ $linenum -ge 0 ]; do
                         line="${new[$linenum]}"
                         sed -i "$end a\\$line" ~/notecards
@@ -371,7 +375,7 @@ while [ $# -ne 0 ]; do
                 exit 0
                 ;;
 
-            ##if arg is option instead of flag
+            ## if arg is option instead of flag
             --)
                 case $1 in
                     --help)
@@ -385,7 +389,7 @@ while [ $# -ne 0 ]; do
                         exit 0
                         ;;
 
-                    ##if option does not exist
+                    ## if option does not exist
                     *)
                         echo "mn: invalid option -- '`cut -c3- <<< $1`'"
                         exit 1
@@ -393,35 +397,35 @@ while [ $# -ne 0 ]; do
                 esac
                 ;;
 
-            ##if flag does not exist
+            ## if flag does not exist
             *)
                 echo "mn: invalid command -- '`cut -c2- <<< $1`'"
                 exit 1
                 ;;
         esac
 
-        ##if last arg and not a string
+        ## if last arg and not a string
         if [ "$1" == "${!#}" ] 2>/dev/null; then
             echo "Usage: mn OPTIONS <string>"
             exit 1
         fi
 
-    ##if last argument and not a flag/option
+    ## if last argument and not a flag/option
     elif [ "$1" == "${!#}" ] 2>/dev/null; then
 
-        ##change IFS
+        ## change IFS
         OLDIFS=$IFS
         IFS=$split
 
-        ##get string into array
+        ## get string into array
         read -ra new <<< $1
 
-        ##echo string into notecards
+        ## echo string into notecards
         for line in "${new[@]}"; do
             echo "$line" >> ~/notecards
         done
 
-        ##echo bottom seperator into notecards
+        ## echo bottom seperator into notecards
         echo "=========================" >> ~/notecards
     else
         echo "Usage: mn OPTIONS <string>"

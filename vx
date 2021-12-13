@@ -1,4 +1,9 @@
 #!/bin/bash
 ##obsolete
 
+# Author: Paul Marks
+# Date: November 2021
+
+# vx: Open vcxsrv (obsolete now as I am no longer using a linux subsystem on a windows machine).
+
 /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe

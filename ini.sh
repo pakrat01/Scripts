@@ -63,6 +63,7 @@ for fiex in "$@"; do
         *.js) ~/bin/ini/inijs "$fiex" ;;
         *.s) ~/bin/ini/inis "$fiex" ;;
         *.sh) ~/bin/ini/inish "$fiex" ;;
+        *.md) ~/bin/ini/inimd "$fiex" ;;
         *) echo "file/extension not supported: $fiex"
             exit 1 ;;
     esac

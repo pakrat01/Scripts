@@ -72,3 +72,6 @@ until it is killed.
 - [ ] Move some `.bashrc` aliases to scripts.
   - [ ] tar stuff.
   - [ ] PS1 stuff.
+- [ ] A `moveTo` script that uses the same functionality as `fim`, but instead of opening the files in
+vim, it shows the files and asks which file to move to using the `cd` command.
+- [ ] Change `fim` to show all matches and choose which file(s) to open.

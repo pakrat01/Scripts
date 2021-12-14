@@ -4,6 +4,7 @@
 # Date: December 2021
 
 # fim: Searches from the current or a specified directory for a file, opens the file in vim if it 
+
 # is found.
 
 # exit 1: usage error
@@ -21,21 +22,35 @@ fi
 ## if one command line argument.
 if [ "$#" -eq 1 ]; then
     file="$1"
+
     #find ./ -name "$file" -exec vim {} \; 2>/dev/null
     #find ./ -name "$file" 2>/dev/null | | grep -q "$file"
-    find ./ -name "$file" -exec vim {} \; 2>&1 | grep -v "Permission denied"
+    #find ./ -name "$file" -exec vim {} \; 2>&1 | grep -v "Permission denied"
+
     find ./ -name "$file" 2>&1 | grep -v "Permission denied" | grep -q "$file"
     code="$?"
+    if [[ "$code" -eq 0 ]]; then
+        for line in $(find ./ -name "$file" 2>&1 | grep -v "Permission denied"); do
+            vim "$line"
+        done
+    fi
 fi
 
 ## if two command line arguments.
 if [ "$#" -eq 2 ]; then
     file="$2"
+
     #find "$1" -name "$file" -exec vim {} \; 2>/dev/null
     #find "$1" -name "$file" 2>/dev/null | grep -q "$1"
-    find "$1" -name "$file" -exec vim {} \; 2>&1 | grep -v "Permission denied"
+    #find "$1" -name "$file" -exec vim {} \; 2>&1 | grep -v "Permission denied"
+
     find "$1" -name "$file" 2>&1 | grep -v "Permission denied" | grep -q "$file"
     code="$?"
+    if [[ "$code" -eq 0 ]]; then
+        for line in $(find "$1" -name "$file" 2>&1 | grep -v "Permission denied"); do
+            vim "$line"
+        done
+    fi
 fi
 
 if [[ "$code" -ne 0 ]]; then

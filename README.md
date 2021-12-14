@@ -47,6 +47,7 @@ As of Dec. 2021, it will initialize:
 - javascript `inijs`
 - bash script `inish`
 - MIPS32 `inis`
+- markdown `inimd`
 
 To run:
 `ini.sh <file(s)>`

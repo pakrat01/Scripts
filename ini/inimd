@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: December 2021
+
+# inimd: Initialize a markdown file.
+
+# exit 1: usage error
+
+## if no command line args
+if [ $# -lt 1 ]; then
+    echo "Usage: inimd <file>"
+    exit 1
+fi
+
+file="$1"
+
+## create a message for the javadoc
+read -rp "Header for $file > " mess
+message+="\n"
+
+## set up variables
+
+# class name is everything before extension
+cname=${file%.*}
+
+dt=`date '+%B %Y'`
+tab="    "
+
+## create/initialize file
+printf "# $mess\n\nAuthor: $NAME\n\n##" > $file

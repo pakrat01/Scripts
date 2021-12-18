@@ -73,6 +73,7 @@ short the bash prompt is on the terminal.
 `full`
 - Shows user@machineName: ~/path/to/current$ 
 - Has the functionality to change the color of the bash prompt with a command line argument
+- Needs to be run before `one` and `hide` will work, suggested to have a line in bashrc `. full <color>`
 
 `one`
 - Shows user@machineName: current$
@@ -94,8 +95,8 @@ These scripts have to be run with `source` or `.` since they interact with envir
   - [ ] tar stuff.
   - [ ] PS1 stuff.
     - [x] full.
-    - [ ] one.
-    - [ ] hide.
+    - [x] one.
+    - [x] hide.
     - [ ] a way to actually save the settings set in the scripts.
 - [ ] A `moveTo` script that uses the same functionality as `fim`, but instead of opening the files in
 vim, it shows the files and asks which file to move to using the `cd` command.

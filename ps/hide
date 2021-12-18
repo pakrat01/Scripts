@@ -7,3 +7,4 @@
 
 # exit 1: usage error
 
+export PS1="$HIDE"

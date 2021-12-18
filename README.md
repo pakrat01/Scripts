@@ -65,6 +65,26 @@ notecards created and saved in the "notecards" file.
 This script is like the command `yes`, but instead of printing "y" until it is killed, it prints "n"
 until it is killed.
 
+### full, one, and hide
+
+`full`, `one`, and `hide` all interact with the PS1 environment variable in bash, to change how long/
+short the bash prompt is on the terminal.
+
+`full`
+- Shows user@machineName: ~/path/to/current$ 
+- Has the functionality to change the color of the bash prompt with a command line argument
+
+`one`
+- Shows user@machineName: current$
+
+`hide`
+- Shows >
+
+I have found these useful, as typically I do not need the entire directory path to my working directory,
+and there are times I am typing such long commands that they run into the next line.
+
+These scripts have to be run with `source` or `.` since they interact with environment variables.
+
 ## Features to be Added:
 
 - [x] A functionality for `inis` to ask if you want to keep the ".s" extension on the bash script file.
@@ -73,6 +93,10 @@ until it is killed.
 - [ ] Move some `.bashrc` aliases to scripts.
   - [ ] tar stuff.
   - [ ] PS1 stuff.
+    - [x] full.
+    - [ ] one.
+    - [ ] hide.
+    - [ ] a way to actually save the settings set in the scripts.
 - [ ] A `moveTo` script that uses the same functionality as `fim`, but instead of opening the files in
 vim, it shows the files and asks which file to move to using the `cd` command.
 - [ ] Change `fim` to show all matches and choose which file(s) to open.

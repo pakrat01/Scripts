@@ -7,3 +7,73 @@
 
 # exit 1: usage error
 
+#FULLDIR=$PS1
+
+if [[ "$#" -eq 1 ]]; then
+
+    case "$1" in
+        ##green and blue
+        gb)
+            export FULLDIR='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export FULLDIR="$FULLDIR\[\033[1;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[00m\]\$ "
+            export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export PS1="$PS1\[\e[1;32m\]\u@\h\[\e[m\]:\[\e[1;34m\]\W\[\e[m\]\$ "
+            #export PS1='${debian_chroot:+($debian_chroot)}
+            #\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+            ;;
+
+        ##light purple, cyan
+        pc)
+            export FULLDIR='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export FULLDIR="$FULLDIR\[\033[1;35m\]\u@\h\[\033[00m\]:\[\033[0;36m\]\w\[\033[00m\]\$ "
+            #export PS1='${debian_chroot:+($debian_chroot)}\[\e[1;35m\]\u@\h\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\$ '
+            export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export PS1="$PS1\[\e[1;35m\]\u@\h\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\$ "
+            ;;
+
+        ##brown, cyan
+        bc)
+            export FULLDIR='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export FULLDIR="$FULLDIR\[\033[0;33m\]\u@\h\[\033[00m\]:\[\033[0;36m\]\w\[\033[00m\]\$ "
+            export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export PS1="$PS1\[\e[0;33m\]\u@\h\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\$ "
+            ;;
+
+        ##brown, light purple, cyan
+        bpc)
+            export FULLDIR='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export FULLDIR="$FULLDIR\[\033[0;33m\]\u\[\e[m\e[1;35m\]@\[\e[0;33m\]"
+            export FULLDIR="$FULLDIR\h\[\033[00m\]:\[\033[0;36m\]\w\[\033[00m\]\$ "
+            #export PS1='${debian_chroot:+($debian_chroot)}\[\e[0;33m\]\u\[\e[m\e[1;35m\]@\[\e[0;33m\]\h\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\$ '
+            export PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}'
+            export PS1="$PS1\[\e[0;33m\]\u\[\e[m\e[1;35m\]@\[\e[0;33m\]"
+            export PS1="$PS1\h\[\e[m\]:\[\e[0;36m\]\W\[\e[m\]\$ "
+            ;;
+
+        help)
+            echo "Green and Blue: gb"
+            echo "Light Purple and Cyan: pc"
+            echo "Brown and Cyan: bc"
+            echo "Brown, Light Purple, and Cyan: bpc"
+            ;;
+
+        *)
+            echo "Invalid option"
+            ;;
+    esac
+fi
+
+## if no arguments
+if [[ "$#" -eq 0 ]]; then
+    export PS1=$FULLDIR
+fi
+
+###Notes on PS1 things
+##\e[ --> start colorscheme
+##\e[m --> end colorscheme
+##\[ --> begin non-printed characters
+##\] --> end non-printed characters
+##\u@\h --> username@computername
+##\W --> basename of working dir
+##\a --> ascii bell character ??
+##x;ym --> color pattern

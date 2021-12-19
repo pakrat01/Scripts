@@ -15,20 +15,27 @@ getName () {
         read -rp "What name do you want on your files? > " nm
     done
 
-    echo "export NAME='$nm'" >> ~/.bashrc
     export NAME="$nm"
+
+    if [[ "$1" == "first" ]]; then
+        echo "export NAME='$nm'" >> ~/.bashrc
+    fi
+
+    if [[ "$1" == "change" ]]; then
+        sed -i "s/^export NAME=.*$/export NAME='$nm'/ ~/.bashrc"
+    fi
 }
 
 temp=0
 
 ## initial setup for script
 if [ -z "$NAME" ]; then
-    getName
+    getName "first"
 fi
 
 ## change name
 if [ "$1" = "-c" ]; then
-    getName
+    getName "change"
     shift
 fi
 

@@ -71,12 +71,12 @@ until it is killed.
 short the bash prompt is on the terminal.
 
 `full`
-- Shows user@machineName: ~/path/to/current$ 
+- Shows user@hostname:~/path/to/current$ 
 - Has the functionality to change the color of the bash prompt with a command line argument
 - Needs to be run before `one` and `hide` will work, suggested to have a line in bashrc `. full <color>`
 
 `one`
-- Shows user@machineName: current$
+- Shows user@hostname:current$
 
 `hide`
 - Shows >
@@ -91,7 +91,7 @@ These scripts have to be run with `source` or `.` since they interact with envir
 - [x] A functionality for `inis` to ask if you want to keep the ".s" extension on the bash script file.
 - [ ] `-r` option for `mn`
 - [ ] A functionality to change the length of the notecards.
-- [ ] Move some `.bashrc` aliases to scripts.
+- [x] Move some `.bashrc` aliases to scripts.
   - [ ] tar stuff.
   - [ ] PS1 stuff.
     - [x] full.

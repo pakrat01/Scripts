@@ -31,9 +31,13 @@ long command every time I wanted to take advantage of this.
 To run:
 `fim [directory/to/start/search/at] <file-to-search-for>`
 
-If the file is found, then it will be opened in vim to edit. If it is not found, the script will ask
+~~If the file is found, then it will be opened in vim to edit. If it is not found, the script will ask
 if you want to make the file. If you decide to make the file, this script will attempt to use the 
-`ini.sh` script to initialize the file, and if that fails will just use `touch` to create the file.
+`ini.sh` script to initialize the file, and if that fails will just use `touch` to create the file.~~
+
+Shows all files with a matching name to the search, and prompts the user to choose a file. If the user
+inputs -1, they are asked if they want to create the file in the current directory. File creation is 
+attempted with `ini.sh` first, then with `touch` if that fails.
 
 ### ini.sh
 
@@ -99,5 +103,7 @@ These scripts have to be run with `source` or `.` since they interact with envir
     - [x] hide.
     - [ ] a way to actually save the settings set in the scripts.
 - [ ] A `moveTo` script that uses the same functionality as `fim`, but instead of opening the files in
-vim, it shows the files and asks which file to move to using the `cd` command.
-- [ ] Change `fim` to show all matches and choose which file(s) to open.
+vim, it shows the files and asks which file to move to using the `cd` command, or an option in `fim` to
+move to the file.
+- [x] Change `fim` to show all matches and choose which file(s) to open.
+- [ ] Options to do the original functionality of `fim`

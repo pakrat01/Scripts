@@ -20,17 +20,32 @@ if [[ $# -gt 3 ]]; then
     exit 1
 fi
 
+hlp () {
+    echo "fim (Find and Vim)"
+    echo -e "\nUSAGE:"
+    echo -e "\tfim [OPTION] [DIRECTORY] <filename>" | expand -t4
+    echo -e "\nOPTIONS:"
+    echo -e "\t-a\t\t\t\tVim all matched files at the same time" | expand -t4
+    echo -e "\t-a1\t\t\t\tVim all matched files one by one" | expand -t4
+    echo -e "\t--help\t\t\tDisplay this menu" | expand -t4
+    echo -e "\t--list\t\t\tList all options" | expand -t4
+}
+
 ## options are checked here, and saved for later use if the option is valid, since other code has to 
 ## happen before the option matters, and there is no need for the program to do anything if an option 
 ## is invalid.
-if [[ $# -ge 2 ]]; then
+if [[ $# -ge 2 || ${1:0:2} == "--" ]]; then
     if [[ ${1:0:1} == "-" ]]; then
         case $1 in
-            -a)     option="$1" ;;
-            -a1)    option="$1" ;;
             --list) echo "[-a] [-a1]"
+                    echo "[--help] [--list]"
                     exit 0
                     ;;
+            --help) hlp
+                    exit 0
+                    ;;
+            -a)     option="$1" ;;
+            -a1)    option="$1" ;;
             *)      echo "Invalid option: $1"
                     exit 2
                     ;;
@@ -39,6 +54,7 @@ if [[ $# -ge 2 ]]; then
     fi
 
     ## because of the nature of the current available options, it doesn't make sense to have more than 
+
     ## one option active at a time.
     if [[ ${1:0:1} == "-" ]]; then 
         echo "Only one option can be valid at a time."
@@ -61,11 +77,11 @@ openFile () {
 }
 
 getFiles () {
-    find "$path" -name "$file" 2>&1 | grep -v "Permission denied" | grep -q "$file"
+    find $path -name $file 2>&1 | grep -v "Permission denied" | grep -q "$file"
     code="$?"
     if [[ "$code" -eq 0 ]]; then
         matches=()
-        for line in $(find "$path" -name "$file" 2>&1 | grep -v "Permission denied"); do
+        for line in $(find $path -name $file 2>&1 | grep -v "Permission denied"); do
             matches+=($line)
         done
     fi
@@ -93,10 +109,12 @@ if [[ $code -eq 0 ]]; then
         openFile "Which file do you want to open? > "
         code="$num"
     elif [[ $option == "-a" ]]; then
-        .
+        echo "-a doesn't work yet"
+        exit 3
     elif [[ $option == "-a1" ]]; then
-        .
-    else
+        echo "-a1 doesn't work yet"
+        exit 3
+    else 
         echo "Option found: $option. No functionality yet."
         exit 3
     fi

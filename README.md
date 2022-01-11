@@ -107,3 +107,4 @@ vim, it shows the files and asks which file to move to using the `cd` command, o
 move to the file.
 - [x] Change `fim` to show all matches and choose which file(s) to open.
 - [ ] Options to do the original functionality of `fim`
+- [ ] Can I get `fim` to accept regexes?

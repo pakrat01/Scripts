@@ -7,3 +7,64 @@
 
 # exit 1: usage error
 
+## if no command line args
+if [[ $# -lt 1 ]]; then
+    echo "Usage: untar <file(s)>"
+    exit 1
+fi
+
+hlp () {
+    ## display the help menu
+    echo "untar, Detect and untar tarballs"
+    echo -e "\nUSAGE:"
+    echo -e "\tuntar <file(s)>" | expand -t4
+    echo -e "\nOPTIONS:" | expand -t4
+    echo -e "\t-h, --help\t\t\tDisplay this menu and exit" | expand -t4
+    echo -e "\t\t--list\t\t\tList all options" | expand -t4
+}
+
+## detect file extension
+fiex=$1
+for fiex in "$@"; do
+    case "$fiex" in
+        *.tar)      tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tar.gz)   tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tgz)      tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tar.bz2)  tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.bz2)      tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tar.tbz)  tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tbz)      tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tar.tb2)  tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *.tb2)      tar -xvf $fiex
+                    exit $?
+                    ;;
+
+        *)          echo "Failure: unkown extension on file: $fiex"
+                    exit 2
+                    ;;
+    esac
+done

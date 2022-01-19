@@ -75,15 +75,15 @@ until it is killed.
 short the bash prompt is on the terminal.
 
 `full`
-- Shows user@hostname:~/path/to/current$ 
+- Shows `user@hostname:~/path/to/current$ `
 - Has the functionality to change the color of the bash prompt with a command line argument
 - Needs to be run before `one` and `hide` will work, suggested to have a line in bashrc `. full <color>`
 
 `one`
-- Shows user@hostname:current$
+- Shows `user@hostname:current$ `
 
 `hide`
-- Shows >
+- Shows `> `
 
 I have found these useful, as typically I do not need the entire directory path to my working directory,
 and there are times I am typing such long commands that they run into the next line.
@@ -93,10 +93,15 @@ These scripts have to be run with `source` or `.` since they interact with envir
 ## Features to be Added:
 
 - [x] A functionality for `inis` to ask if you want to keep the ".s" extension on the bash script file.
-- [ ] `-r` option for `mn`
-- [ ] A functionality to change the length of the notecards.
+- [ ] `mn` stuff
+  - [ ] `-r` option to replace lines or entire notecards
+  - [ ] A functionality to change the length of the notecards.
 - [x] Move some `.bashrc` aliases to scripts.
   - [ ] tar stuff.
+    - [x] tar a file/folder into a .tbz tarball.
+      - [ ] allow for other tarball extensions.
+    - [x] untar a tarball.
+      - [x] detect the extension automatically.
   - [ ] PS1 stuff.
     - [x] full.
     - [x] one.
@@ -106,5 +111,7 @@ These scripts have to be run with `source` or `.` since they interact with envir
 vim, it shows the files and asks which file to move to using the `cd` command, or an option in `fim` to
 move to the file.
 - [x] Change `fim` to show all matches and choose which file(s) to open.
-- [ ] Options to do the original functionality of `fim`
+- [ ] Options to do the original functionality of `fim`.
+  - [ ] Open all matched files at once.
+  - [ ] Open all matched files one at a time.
 - [ ] Can I get `fim` to accept regexes?

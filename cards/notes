@@ -6,7 +6,7 @@
 ## notes: Show the notecards file in a neat fashion.
 
 ## set up initial variables
-file=~/notecards
+file=~/bin/cards/notecards
 cards=()
 IFS=$'\n'
 

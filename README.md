@@ -90,6 +90,14 @@ and there are times I am typing such long commands that they run into the next l
 
 These scripts have to be run with `source` or `.` since they interact with environment variables.
 
+### todo
+
+This script shows the `Features to be Added` section of a README file, or the entire file if that
+section does not exist in the file.
+
+To run:
+`todo` *in a directory that contains a README or REAMDME.md file*
+
 ## Features to be Added:
 
 - [x] A functionality for `inis` to ask if you want to keep the ".s" extension on the bash script file.

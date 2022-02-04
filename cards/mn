@@ -75,7 +75,7 @@ getNum () {
 }
 
 ## get number of notes
-stickynum=`grep -o "^=" ~/notecards | wc -l`
+stickynum=`grep -o "^=" ~/bin/cards/notecards | wc -l`
 
 ## if help
 if [ "$1" == "help" ]; then
@@ -197,7 +197,7 @@ while [ $# -ne 0 ]; do
                 count=0
 
                 ## for every note seperator
-                for line in `grep -n "^=" ~/notecards`; do
+                for line in `grep -n "^=" ~/bin/cards/notecards`; do
 
                     ## if top seperator for note has been found
                     if [ ! -z $next ]; then
@@ -244,7 +244,7 @@ while [ $# -ne 0 ]; do
                 IFS=$OLDIFS
 
                 ## delete from top seperator of note to line before bottom seperator of note
-                sed -i "$start,$end d" ~/notecards
+                sed -i "$start,$end d" ~/bin/cards/notecards
 
                 exit 0
                 ;;
@@ -263,7 +263,7 @@ while [ $# -ne 0 ]; do
                 count=0
 
                 ## for each note seperator
-                for line in `grep -n "^=" ~/notecards`; do
+                for line in `grep -n "^=" ~/bin/cards/notecards`; do
 
                     ## if seperator number matches note number
                     if [ $count -eq $num ]; then
@@ -302,7 +302,7 @@ while [ $# -ne 0 ]; do
                     ## append string to note
                     while [ $linenum -ge 0 ]; do
                         line="${new[$linenum]}"
-                        sed -i "$end i\\$line" ~/notecards
+                        sed -i "$end i\\$line" ~/bin/cards/notecards
                         ((linenum--))
                     done
                 else
@@ -326,7 +326,7 @@ while [ $# -ne 0 ]; do
                 count=1
 
                 ## for each note seperator
-                for line in `grep -n "^=" ~/notecards`; do
+                for line in `grep -n "^=" ~/bin/cards/notecards`; do
 
                     ## if seperator number matches note number
                     if [ $count -eq $num ]; then
@@ -365,7 +365,7 @@ while [ $# -ne 0 ]; do
                     ## append string to note
                     while [ $linenum -ge 0 ]; do
                         line="${new[$linenum]}"
-                        sed -i "$end a\\$line" ~/notecards
+                        sed -i "$end a\\$line" ~/bin/cards/notecards
                         ((linenum--))
                     done
                 else
@@ -422,11 +422,11 @@ while [ $# -ne 0 ]; do
 
         ## echo string into notecards
         for line in "${new[@]}"; do
-            echo "$line" >> ~/notecards
+            echo "$line" >> ~/bin/cards/notecards
         done
 
         ## echo bottom seperator into notecards
-        echo "=========================" >> ~/notecards
+        echo "=========================" >> ~/bin/cards/notecards
     else
         echo "Usage: mn OPTIONS <string>"
         exit 1

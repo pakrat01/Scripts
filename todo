@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Author: Paul Marks
+# Date: January 2022
+
+# todo: Show the ending bulletpoints for a README file in the current directory.
+
+# exit 1: usage error
+
+usage () {
+    echo "Usage: todo **in a directory with a README file**"
+    exit 1
+}
+
+success=0
+
+for item in *; do
+    if [[ $item == "README.md" || $item == "README" ]]; then
+        oldIFS=$IFS
+        IFS=' '
+        read -ra fileSize <<< $(wc -l $item)
+        IFS=':'
+        read -ra lineNum <<< $(grep -n "Features to be Added:" $item)
+        IFS=$oldIFS
+        if [[ -z $lineNum ]]; then
+            lineNum=0
+        fi
+        tailSize=$(expr $fileSize - $lineNum)
+        tail -n$tailSize $item
+        success=1
+    fi
+done
+
+if [[ $success -eq 0 ]]; then
+    usage
+fi

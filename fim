@@ -120,7 +120,7 @@ if [[ $code -eq 0 ]]; then
     fi
 fi
 
-if [[ "$code" -ne 0 ]]; then
+if [[ "$code" -ne 0 ]] || [[ "$code" -le -1 ]]; then
     echo -n "File was not found, would you like to create file $file? (y/n) "
     read answer
     if [[ "$answer" == "y" ]]; then

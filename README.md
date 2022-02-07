@@ -115,11 +115,12 @@ To run:
     - [x] one.
     - [x] hide.
     - [ ] a way to actually save the settings set in the scripts.
+      - Maybe do this with a .sv file, and adding a few lines to the .bashrc file?
 - [ ] A `moveTo` script that uses the same functionality as `fim`, but instead of opening the files in
 vim, it shows the files and asks which file to move to using the `cd` command, or an option in `fim` to
 move to the file.
 - [x] Change `fim` to show all matches and choose which file(s) to open.
-- [ ] Options to do the original functionality of `fim`.
-  - [ ] Open all matched files at once.
-  - [ ] Open all matched files one at a time.
-- [ ] Can I get `fim` to accept regexes?
+- [ ] ~~Options to do the original functionality of `fim`.~~
+  - [ ] ~~Open all matched files at once.~~
+  - [ ] ~~Open all matched files one at a time.~~
+- [x] Can I get `fim` to accept regexes? *accomplished with the -r option*

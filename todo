@@ -8,26 +8,45 @@
 # exit 1: usage error
 
 usage () {
-    echo "Usage: todo **in a directory with a README file**"
+    echo "Usage: todo **in a directory with a README file** OR todo [file]"
     exit 1
+}
+
+## have to grep multiple times, may as well make it a function
+findLine () {
+    read -ra lineNum <<< $(grep -n "$1" $2)
+}
+
+search () {
+    oldIFS=$IFS
+    IFS=' '
+    read -ra fileSize <<< $(wc -l $1)
+    IFS=':'
+    findLine "Features to be Added:" "$1"
+    if [[ -z $lineNum ]]; then
+        findLine "todo:" "$1"
+        if [[ -z $lineNum ]]; then
+            lineNum=0
+        fi
+    fi
+    IFS=$oldIFS
+    tailSize=$(expr $fileSize - $lineNum)
+    tail -n$tailSize $1
+    success=1
 }
 
 success=0
 
+## ability to just pass a file to circumvent a search
+if [[ $# -eq 1 ]]; then
+    search $1
+    exit 0
+fi
+
 for item in *; do
     if [[ $item == "README.md" || $item == "README" ]]; then
-        oldIFS=$IFS
-        IFS=' '
-        read -ra fileSize <<< $(wc -l $item)
-        IFS=':'
-        read -ra lineNum <<< $(grep -n "Features to be Added:" $item)
-        IFS=$oldIFS
-        if [[ -z $lineNum ]]; then
-            lineNum=0
-        fi
-        tailSize=$(expr $fileSize - $lineNum)
-        tail -n$tailSize $item
-        success=1
+        search "$item"
+        break;  ## no need to loop again, README was found
     fi
 done
 

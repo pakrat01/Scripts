@@ -96,7 +96,7 @@ This script shows the `Features to be Added` section of a README file, or the en
 section does not exist in the file.
 
 To run:
-`todo` *in a directory that contains a README or README.md file*
+`todo` *in a directory that contains a README or README.md file* OR `todo <file>`
 
 ## Features to be Added:
 

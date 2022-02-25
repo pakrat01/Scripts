@@ -124,3 +124,6 @@ move to the file.
   - [ ] ~~Open all matched files at once.~~
   - [ ] ~~Open all matched files one at a time.~~
 - [x] Can I get `fim` to accept regexes? *accomplished with the -r option*
+- [ ] Insert the `complete` command for certain scripts.
+- [ ] Fix bug in the `notes` script.
+- [ ] Change error outputs to go through error output, rather than standard output.

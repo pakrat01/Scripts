@@ -52,6 +52,7 @@ As of Dec. 2021, it will initialize:
 - bash script `inish`
 - MIPS32 `inis`
 - markdown `inimd`
+- c `inic`
 
 To run:
 `ini.sh <file(s)>`

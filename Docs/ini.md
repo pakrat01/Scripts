@@ -16,6 +16,9 @@ ini.sh uses the scripts in the directory ini/ to initialize files.
 - inis initializes MIPS files
 - inish initializes bash script files
 - inimd initializes markdown files
+- inic initializes c files
+  - -h to include header file of the same name
+  - -m to add main function
 
 ini.sh also uses a custom environment variable NAME to remember what name goes onto files. If NAME is
 empty, then the script will prompt the user for a name, and save the export command to the users .bashrc

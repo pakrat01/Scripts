@@ -26,6 +26,17 @@ getName () {
     fi
 }
 
+getOptions () {
+    # while the first argument is an option
+    options=()
+    shamt=0
+    while [[ ${2:0:1} == "-" ]]; do
+        options+="$2 "
+        ((shamt++))
+        shift
+    done
+}
+
 temp=0
 
 ## initial setup for script
@@ -62,8 +73,8 @@ if [ $# -lt 1 ]; then
 fi
 
 ## check the file extension
-fiex=$1
-for fiex in "$@"; do
+while [[ $1 ]]; do
+    fiex=$1
     case "$fiex" in
         *.py) ~/bin/ini/inipy "$fiex" ;;
         *.java) ~/bin/ini/inijava "$fiex" ;;
@@ -71,9 +82,16 @@ for fiex in "$@"; do
         *.s) ~/bin/ini/inis "$fiex" ;;
         *.sh) ~/bin/ini/inish "$fiex" ;;
         *.md) ~/bin/ini/inimd "$fiex" ;;
+        *.c) getOptions $@
+             while [[ $shamt -gt 0 ]]; do ##so the options don't get run by `ini`
+                 shift
+                 ((shamt--))
+             done
+             ~/bin/ini/inic $fiex ${options[@]};;
         *) echo "file/extension not supported: $fiex"
             exit 1 ;;
     esac
+    shift
 done
 
 ## reset name if a temp was used

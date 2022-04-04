@@ -1,0 +1,54 @@
+#!/bin/bash
+
+
+# Author: Paul Marks
+# Date: April 2022
+
+# inic: Initialize a c file
+
+# exit 1: usage error
+
+## if no command line args
+if [ $# -lt 1 ]; then
+    echo "Usage: inic <file>"
+    exit 1
+fi
+
+file="$1"
+
+## create a message for the doc
+read -rp "Description for $file > " mess
+message+="\n"
+
+## set up variables
+
+dt=`date '+%B %Y'`
+tab="    "
+
+## create/initialize file.
+printf "/**\n * @author $NAME\n * @version $dt\n *\n * $mess\n */\n" > $file
+printf "\n#include <stdio.h>" >> $file
+
+shift ##get rid of first argument
+args="${@}" ##store the rest of the arguments as an array
+
+##loop through stored arguments (if any)
+for arg in ${args[@]}; do
+    if [[ $arg == -h ]]; then ##shows that a header file of the same name exists/will be made
+        head=true
+        shift
+    fi
+    if [[ $arg == -m ]]; then
+        main=true
+        shift
+    fi
+done
+
+## done this way so that the `include` is always before the main function
+if [[ $head ]]; then
+    headFile="${file%?}h"
+    printf "\n#include \"./$headFile\"\n\n" >> $file
+fi
+if [[ $main ]]; then
+    printf "int main(int argc, char* argv[]) {\n    .\n}" >> $file
+fi
